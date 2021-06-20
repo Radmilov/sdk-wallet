@@ -51,8 +51,26 @@ public class User {
             inverseJoinColumns = @JoinColumn(name="wallet_id")
     )
     private Set<Wallet> walleti;
+    @ManyToMany(
+            cascade = {CascadeType.ALL, CascadeType.REMOVE}
+    )
+    @JoinTable(
+            name = "sacuvani_notesi",
+            joinColumns = @JoinColumn(name="id"),
+            inverseJoinColumns = @JoinColumn(name="note_id")
+    )
+    private Set<Note> notesi;
+    @ManyToMany(
+            cascade = {CascadeType.ALL, CascadeType.REMOVE}
+    )
+    @JoinTable(
+            name = "sacuvani_kontakti",
+            joinColumns = @JoinColumn(name="id"),
+            inverseJoinColumns = @JoinColumn(name="contact_id")
+    )
+    private Set<Contact> kontakti;
 
-    public Student(String username, String prezusername, String email, String password, Set<Wallet> walleti) {
+    public User(String username, String email, String password, Set<Wallet> walleti) {
         this.username = username;
         this.email = email;
         this.password = password;
