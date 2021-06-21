@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("userService")
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -27,6 +29,16 @@ public class UserServiceImpl implements UserService {
     public void save(User u) {
         u.setPassword(bCryptPasswordEncoder.encode(u.getPassword()));
         userRepository.save(u);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public void delete(User u) {
+        userRepository.delete(u);
     }
 
     @Override

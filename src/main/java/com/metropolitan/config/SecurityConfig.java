@@ -34,8 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery("SELECT email, password, 'true' as enabled FROM student WHERE email=?")
-                .authoritiesByUsernameQuery("SELECT email, 'ROLE_USER' FROM student WHERE email=?")
+                .usersByUsernameQuery("SELECT email, password, 'true' as enabled FROM user WHERE email=?")
+                .authoritiesByUsernameQuery("SELECT email, 'ROLE_USER' FROM user WHERE email=?")
                 .passwordEncoder(new BCryptPasswordEncoder());
     }
 
@@ -45,16 +45,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/register").permitAll()
-                .antMatchers("prijava_ispita").hasAnyAuthority().anyRequest()
+                .antMatchers("index").hasAnyAuthority().anyRequest()
                 .authenticated().and().csrf().disable().formLogin()
                 .loginPage("/login").failureUrl("/login?error=true")
-                .defaultSuccessUrl("/prijava_ispita")
+                .defaultSuccessUrl("/")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/").and().exceptionHandling()
-                .accessDeniedPage("/access-denied");
+                .accessDeniedPage("/login");
     }
 
     @Override
