@@ -21,8 +21,7 @@ public class Note {
     @NotEmpty(message="Unesite poruku.")
     private String poruka;
 
-    public Note(Long id, String poruka) {
-        this.id = id;
+    public Note(String poruka) {
         this.poruka = poruka;
     }
 

@@ -27,4 +27,36 @@ public class Network {
     )
     @NotEmpty(message="Unesite ime mreze.")
     private String ime;
+
+    public Network(String adresa, String ime) {
+        this.adresa = adresa;
+        this.ime = ime;
+    }
+
+    public Network() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getAdresa() {
+        return adresa;
+    }
+
+    public void setAdresa(String adresa) {
+        this.adresa = adresa;
+    }
+
+    public String getIme() {
+        return ime;
+    }
+
+    public void setIme(String ime) {
+        this.ime = ime;
+    }
 }
