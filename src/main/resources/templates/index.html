@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <style>
+        table {
+            display: table;
+            height: 400px;
+            table-layout: fixed;
+            width: 333px;
+            overflow-y: scroll;
+            border: 1px solid black;
+        }
+
+        tr {
+            height: 8px;
+            border: 1px solid black;
+        }
+
+
+
+    </style>
     <meta charset="UTF-8">
     <title>Prijava ispita</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -13,6 +31,7 @@
             <table>
                 <thead>
                 <tr>
+                    <th> Alias </th>
                     <th> Public key </th>
                     <th> Private key </th>
                 </tr>
@@ -22,12 +41,13 @@
                     <td colspan="2"> No Wallets Available </td>
                 </tr>
                 <tr th:each="wallet : ${wallets}">
+                    <td><span th:text="${wallet.alias}"> Alias </span></td>
                     <td><span th:text="${wallet.publicKey}"> Public key </span></td>
                     <td><span th:text="${wallet.privateKey}"> Private key </span></td>
                 </tr>
                 </tbody>
             </table>
-            <form method="post" th:object="${wallet}" >
+            <form method="post" action="/addWallet" th:object="${wallet}" >
                 <div>
                     <p>Name:</p>
                     <input type="text" name="alias" min="3" max="20" th:value="${wallet.alias}" required />
@@ -45,14 +65,67 @@
                     <button type="submit">Add wallet</button>
                 </div>
             </form>
-            <button>Add new Wallet</button>
         </div>
         <div class="col-sm">
-            One of three columns
-        </div>
+            <table>
+                <thead>
+                <tr>
+                    <th> Contact name </th>
+                    <th> Public key </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${contacts.empty}">
+                    <td colspan="2"> No Wallets Available </td>
+                </tr>
+                <tr th:each="contact : ${contacts}">
+                    <td><span th:text="${contact.ime}">Name</span></td>
+                    <td><span th:text="${contact.publicKey}">Public key </span></td>
+                </tr>
+                </tbody>
+            </table>
+            <form method="post" action="/addContact" th:object="${contact}" >
+                <div>
+                    <p>Name:</p>
+                    <input type="text" name="ime" min="3" max="20" th:value="${contact.ime}" required />
+                </div>
+                <div>
+                    <p>Phone:</p>
+                    <input type="text" name="publicKey" th:value="${contact.publicKey}" required />
+                </div>
+                <div>
+                    <br/>
+                    <button type="submit">Add contact</button>
+                </div>
+            </form>        </div>
         <div class="col-sm">
-            One of three columns
-        </div>
+            <table>
+                <thead>
+                <tr>
+                    <th> Note ID </th>
+                    <th> Message </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${notes.empty}">
+                    <td colspan="2"> No Wallets Available </td>
+                </tr>
+                <tr th:each="note : ${notes}">
+                    <td><span th:text="${note.id}"> Note ID </span></td>
+                    <td><span th:text="${note.poruka}"> Poruka </span></td>
+                </tr>
+                </tbody>
+            </table>
+            <form method="post" action="/addNote" th:object="${note}" >
+                <div>
+                    <p>Name:</p>
+                    <input type="text" name="poruka" min="3" max="20" th:value="${note.poruka}" required />
+                </div>
+                <div>
+                    <br/>
+                    <button type="submit">Add note</button>
+                </div>
+            </form>        </div>
     </div>
 </div>
                             <a th:href="@{/logout}" class="text-light">Odjava</a>

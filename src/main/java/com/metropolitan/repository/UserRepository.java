@@ -15,17 +15,17 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO sacuvani_walleti (id, wallet_id) VALUES (?1, ?2)", nativeQuery = true)
-    void sacuvajWallet(Long studentId, Long ispitId);
+    void sacuvajWallet(Long studentId, Long kontaktId);
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO sacuvani_kontakti (id, kontakt_public_key) VALUES (?1, ?2)", nativeQuery = true)
-    void sacuvajKontakta(Long studentId, Long ispitId);
+    @Query(value = "INSERT INTO sacuvani_kontakti (id, contact_id) VALUES (?1, ?2)", nativeQuery = true)
+    void sacuvajKontakta(Long studentId, Long contact_id);
 
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO sacuvani_notesi (id, note_id) VALUES (?1, ?2)", nativeQuery = true)
-    void sacuvajNote(Long studentId, Long ispitId);
+    void sacuvajNote(Long studentId, Long kontaktId);
 
     User findByEmail(String email);
 

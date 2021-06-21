@@ -1,5 +1,7 @@
 package com.metropolitan.controller;
 
+import com.metropolitan.model.Contact;
+import com.metropolitan.model.Note;
 import com.metropolitan.model.User;
 import com.metropolitan.model.Wallet;
 import com.metropolitan.service.*;
@@ -31,12 +33,6 @@ public class WebController {
     @Autowired
     private WalletService walletService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView homePage() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("index");
-        return modelAndView;
-    }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public ModelAndView showRegister() {
@@ -75,17 +71,26 @@ public class WebController {
         return modelAndView;
     }
 
-    @RequestMapping(value="/index", method=RequestMethod.GET)
+    @RequestMapping(value={"/index", "/"}, method=RequestMethod.GET)
     public ModelAndView showIndex() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        modelAndView.addObject("user", userService.findByEmail(auth.getName()));
         modelAndView.addObject("wallets", walletService.findAll());
         modelAndView.addObject("wallet", new Wallet());
+        modelAndView.addObject("contacts", contactService.findAll());
+        modelAndView.addObject("contact", new Contact());
+        modelAndView.addObject("notes", noteService.findAll());
+        modelAndView.addObject("note", new Note());
+
         return modelAndView;
     }
 
-    @RequestMapping(value="/index", method=RequestMethod.POST)
-    public String saveMember(@Valid Wallet wallet, BindingResult bindingResult, Model model) {
+    @RequestMapping(value="/addWallet", method=RequestMethod.POST)
+    public ModelAndView saveWallet(@Valid Wallet wallet, BindingResult bindingResult, Model model) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("index");
         if (bindingResult.hasErrors()) {
             model.addAttribute("wallet", wallet);
         } else {
@@ -95,9 +100,58 @@ public class WebController {
             userService.sacuvajWallet(user.getId(), wallet.getId());
             model.addAttribute("wallet", new Wallet());
         }
-        model.addAttribute("wallets", walletService.findAll());
+        modelAndView.addObject("wallets", walletService.findAll());
+        modelAndView.addObject("wallet", new Wallet());
+        modelAndView.addObject("contacts", contactService.findAll());
+        modelAndView.addObject("contact", new Contact());
+        modelAndView.addObject("notes", noteService.findAll());
+        modelAndView.addObject("note", new Note());
 
-        return "index";
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/addContact", method=RequestMethod.POST)
+    public ModelAndView saveContact(@Valid Contact contact, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("index");
+        if (bindingResult.hasErrors()) {
+            modelAndView.addObject("contact", contact);
+        } else {
+            contactService.save(contact);
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            User user = userService.findByEmail(auth.getName());
+            userService.sacuvajKontakt(user.getId(), contact.getId());
+            modelAndView.addObject("contact", new Contact());
+        }
+        modelAndView.addObject("wallets", walletService.findAll());
+        modelAndView.addObject("wallet", new Wallet());
+        modelAndView.addObject("contacts", contactService.findAll());
+        modelAndView.addObject("contact", new Contact());
+        modelAndView.addObject("notes", noteService.findAll());
+        modelAndView.addObject("note", new Note());
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/addNote", method=RequestMethod.POST)
+    public ModelAndView saveNote(@Valid Note note, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("index");
+        if (bindingResult.hasErrors()) {
+            modelAndView.addObject("note", note);
+        } else {
+            noteService.save(note);
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            User user = userService.findByEmail(auth.getName());
+            userService.sacuvajNote(user.getId(), note.getId());
+            modelAndView.addObject("note", new Note());
+        }
+        modelAndView.addObject("wallets", walletService.findAll());
+        modelAndView.addObject("wallet", new Wallet());
+        modelAndView.addObject("contacts", contactService.findAll());
+        modelAndView.addObject("contact", new Contact());
+        modelAndView.addObject("notes", noteService.findAll());
+        modelAndView.addObject("note", new Note());
+        return modelAndView;
     }
 
 }

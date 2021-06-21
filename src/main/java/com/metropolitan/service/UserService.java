@@ -16,7 +16,7 @@ public interface UserService {
 
     void sacuvajWallet(Long userId, Long walletId);
 
-    void sacuvajKontakt(Long userId, long kontaktId);
+    void sacuvajKontakt(Long userId, Long kontaktId);
 
     void sacuvajNote(Long userId, Long noteId);
 

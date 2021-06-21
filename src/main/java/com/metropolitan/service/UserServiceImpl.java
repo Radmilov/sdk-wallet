@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void sacuvajKontakt(Long userId, long kontaktId) {
+    public void sacuvajKontakt(Long userId, Long kontaktId) {
         userRepository.sacuvajKontakta(userId, kontaktId);
     }
 

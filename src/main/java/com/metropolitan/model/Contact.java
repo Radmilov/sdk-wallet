@@ -9,9 +9,9 @@ public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(
-            name = "public_key"
+            name = "id"
     )
-    private Long publicKey;
+    private Long id;
 
     @Column(
             name = "ime",
@@ -21,7 +21,15 @@ public class Contact {
     @NotEmpty(message="Unesite ime.")
     private String ime;
 
-    public Contact(Long publicKey, String ime) {
+    @Column(
+            name = "public_key",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    @NotEmpty(message="Unesite ime.")
+    private String publicKey;
+
+    public Contact(String publicKey, String ime) {
         this.publicKey = publicKey;
         this.ime = ime;
     }
@@ -29,12 +37,20 @@ public class Contact {
     public Contact() {
     }
 
-    public Long getPublicKey() {
+    public String getPublicKey() {
         return publicKey;
     }
 
-    public void setPublicKey(Long publicKey) {
+    public void setPublicKey(String publicKey) {
         this.publicKey = publicKey;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getIme() {
