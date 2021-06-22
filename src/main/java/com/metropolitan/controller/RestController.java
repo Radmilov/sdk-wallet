@@ -1,6 +1,7 @@
 package com.metropolitan.controller;
 
 
+import com.metropolitan.model.User;
 import com.metropolitan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,7 @@ public class RestController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<com.metropolitan.model.User> getById(@PathVariable("id") Long id) {
+    public ResponseEntity<User> getById(@PathVariable("id") Long id) {
         com.metropolitan.model.User entity = userService.findById(id);
         if (entity != null) {
             return ResponseEntity.ok(entity);
@@ -36,7 +37,7 @@ public class RestController {
     }
 
     @PostMapping
-    public ResponseEntity<com.metropolitan.model.User> create(@RequestBody com.metropolitan.model.User entity) {
+    public ResponseEntity<User> create(@RequestBody User entity) {
         userService.save(entity);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -51,7 +52,7 @@ public class RestController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<com.metropolitan.model.User> delete(@PathVariable("id") java.lang.Long id) {
+    public ResponseEntity<User> delete(@PathVariable("id") java.lang.Long id) {
         com.metropolitan.model.User entity = userService.findById(id);
         if (entity != null) {
             userService.delete(userService.findById(id));

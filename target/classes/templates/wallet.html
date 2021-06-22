@@ -1,0 +1,15 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Wallet Update page</title>
+</head>
+<body>
+<h1> Wallet</h1>
+  <form method="post" th:object="${wallet}" >
+      <input type="text" name="alias" min="15" max="20" th:value="${wallet.alias}" required />
+      <input type="text" name="publicKey" min="15" max="20" th:value="${wallet.publicKey}" required />
+     <input type="text" name="privateKey" min="15" max="20" th:value="${wallet.privateKey}" required />
+   <input type="submit" name="submit" value="Update">
+</form>
+
+</body>
+</html>

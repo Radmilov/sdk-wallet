@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -83,6 +84,7 @@ public class WebController {
         modelAndView.addObject("contact", new Contact());
         modelAndView.addObject("notes", noteService.findAll());
         modelAndView.addObject("note", new Note());
+        modelAndView.addObject("networks", networkService.findAll());
 
         return modelAndView;
     }
@@ -106,6 +108,8 @@ public class WebController {
         modelAndView.addObject("contact", new Contact());
         modelAndView.addObject("notes", noteService.findAll());
         modelAndView.addObject("note", new Note());
+        modelAndView.addObject("networks", networkService.findAll());
+        System.out.println(networkService.findAll());
 
         return modelAndView;
     }
@@ -153,5 +157,48 @@ public class WebController {
         modelAndView.addObject("note", new Note());
         return modelAndView;
     }
+
+    @RequestMapping(value="wallet/{id}/", method=RequestMethod.GET)
+    public ModelAndView updateMember(@PathVariable Long id){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("wallet", walletService.findById(id));
+        modelAndView.setViewName("wallet");
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/wallet/{id}", method=RequestMethod.POST)
+    public String updateMemberPost(Wallet wallet, @PathVariable Long id){
+        walletService.update(wallet);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("index");
+        return "redirect:http://localhost:8080/index";
+    }
+
+    @RequestMapping(value="/wallet/{id}/delete", method=RequestMethod.GET)
+    public String deleteWallet(Wallet wallet, @PathVariable Long id){
+        walletService.delete(wallet);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("index");
+        return "redirect:http://localhost:8080/index";
+    }
+
+    @RequestMapping(value="/note/{id}/delete", method=RequestMethod.GET)
+    public String deleteNote(Note note, @PathVariable Long id){
+        noteService.delete(note);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("index");
+        return "redirect:http://localhost:8080/index";
+    }
+
+    @RequestMapping(value="/contact/{id}/delete", method=RequestMethod.GET)
+    public String deleteContact(Contact contact, @PathVariable Long id){
+        contactService.delete(contact);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("index");
+        return "redirect:http://localhost:8080/index";
+    }
+
+
+
 
 }

@@ -29,4 +29,9 @@ public class ContactServiceImpl implements ContactService{
     public void save(Contact c) {
         contactRepository.save(c);
     }
+
+    @Override
+    public void delete(Contact c) {
+        contactRepository.delete(c);
+    }
 }

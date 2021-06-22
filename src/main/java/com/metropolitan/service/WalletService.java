@@ -10,5 +10,11 @@ public interface WalletService {
 
     List<Wallet> findAll();
 
+    Wallet findById(Long id);
+
+    void update(Wallet w);
+
+    void delete(Wallet w);
+
 
 }

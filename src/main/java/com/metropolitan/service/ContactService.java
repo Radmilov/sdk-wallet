@@ -11,4 +11,6 @@ public interface ContactService {
     Contact findById(Long id);
 
     void save(Contact c);
+
+    void delete(Contact c);
 }

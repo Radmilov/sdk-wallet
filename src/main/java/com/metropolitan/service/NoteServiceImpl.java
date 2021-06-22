@@ -32,4 +32,9 @@ public class NoteServiceImpl implements NoteService {
         noteRepository.save(n);
 
     }
+
+    @Override
+    public void delete(Note n) {
+        noteRepository.delete(n);
+    }
 }

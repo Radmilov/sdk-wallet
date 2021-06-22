@@ -25,6 +25,12 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
 </head>
 <body>
+<select>
+    <option th:each="network : ${networks}" th:text="${network.ime}">R</option>
+
+</select>
+<hr>
+<hr>
 <div class="container">
     <div class="row">
         <div class="col-sm">
@@ -44,6 +50,9 @@
                     <td><span th:text="${wallet.alias}"> Alias </span></td>
                     <td><span th:text="${wallet.publicKey}"> Public key </span></td>
                     <td><span th:text="${wallet.privateKey}"> Private key </span></td>
+                    <td><a th:href="${'/wallet/' +wallet.id +'/'}">Edit</a></td>
+                    <td><a th:href="${'/wallet/' +wallet.id +'/delete/'}">Delete</a></td>
+
                 </tr>
                 </tbody>
             </table>
@@ -76,11 +85,12 @@
                 </thead>
                 <tbody>
                 <tr th:if="${contacts.empty}">
-                    <td colspan="2"> No Wallets Available </td>
+                    <td colspan="2"> No Contacts Available </td>
                 </tr>
                 <tr th:each="contact : ${contacts}">
                     <td><span th:text="${contact.ime}">Name</span></td>
                     <td><span th:text="${contact.publicKey}">Public key </span></td>
+                    <td><a th:href="${'/contact/' +contact.id +'/delete/'}">Delete</a></td>
                 </tr>
                 </tbody>
             </table>
@@ -108,11 +118,13 @@
                 </thead>
                 <tbody>
                 <tr th:if="${notes.empty}">
-                    <td colspan="2"> No Wallets Available </td>
+                    <td colspan="2"> No Notes Available </td>
                 </tr>
                 <tr th:each="note : ${notes}">
                     <td><span th:text="${note.id}"> Note ID </span></td>
                     <td><span th:text="${note.poruka}"> Poruka </span></td>
+                    <td><a th:href="${'/note/' +note.id +'/delete/'}">Delete</a></td>
+
                 </tr>
                 </tbody>
             </table>
