@@ -9,6 +9,7 @@
             width: 333px;
             overflow-y: scroll;
             border: 1px solid black;
+            padding: 20px;
         }
 
         tr {
@@ -58,15 +59,15 @@
             </table>
             <form method="post" action="/addWallet" th:object="${wallet}" >
                 <div>
-                    <p>Name:</p>
+                    <p>Alias:</p>
                     <input type="text" name="alias" min="3" max="20" th:value="${wallet.alias}" required />
                 </div>
                 <div>
-                    <p>Phone:</p>
+                    <p>Public key:</p>
                     <input type="text" name="publicKey" th:value="${wallet.publicKey}" required />
                 </div>
                 <div>
-                    <p>Email:</p>
+                    <p>Private key:</p>
                     <input type="text" name="privateKey" th:value="${wallet.privateKey}" required/>
                 </div>
                 <div>
@@ -96,11 +97,11 @@
             </table>
             <form method="post" action="/addContact" th:object="${contact}" >
                 <div>
-                    <p>Name:</p>
+                    <p>Ime:</p>
                     <input type="text" name="ime" min="3" max="20" th:value="${contact.ime}" required />
                 </div>
                 <div>
-                    <p>Phone:</p>
+                    <p>Public key:</p>
                     <input type="text" name="publicKey" th:value="${contact.publicKey}" required />
                 </div>
                 <div>
@@ -130,7 +131,7 @@
             </table>
             <form method="post" action="/addNote" th:object="${note}" >
                 <div>
-                    <p>Name:</p>
+                    <p>Poruka:</p>
                     <input type="text" name="poruka" min="3" max="20" th:value="${note.poruka}" required />
                 </div>
                 <div>
@@ -139,10 +140,13 @@
                 </div>
             </form>        </div>
     </div>
-</div>
-                            <a th:href="@{/logout}" class="text-light">Odjava</a>
 
-    </section>
+</div>
+<a class="btn btn-primary" href="/logout">Logout</a>
+
+
+
+</section>
 
 </body>
 </html>
